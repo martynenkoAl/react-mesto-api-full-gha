@@ -1,0 +1,28 @@
+.profile {
+  max-width: 880px;
+  margin: 0 auto;
+  padding-top: 40px;
+  display: grid;
+  grid-template-columns: 120px 1fr 150px;
+  grid-template-areas:
+  "photo info button";
+}
+
+@media screen and (max-width: 1023px) {
+  .profile {
+    max-width: 581px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .profile {
+    max-width: 282px;
+    padding-top: 42px;
+    justify-items: center;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+    "photo"
+    "info"
+    "button";
+  }
+}

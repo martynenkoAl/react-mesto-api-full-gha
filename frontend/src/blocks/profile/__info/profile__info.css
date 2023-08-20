@@ -1,0 +1,26 @@
+.profile__info {
+  padding-left: 30px;
+  display: grid;
+  grid-template-columns: max-content min-content;
+  grid-template-areas:
+  "name edit"
+  "job job";
+  column-gap: 19px;
+  align-content: center;
+  grid-area: info;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 1023px) {
+  .profile__info {
+    column-gap: 10px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .profile__info {
+    padding: 26px 0 0 0;
+  }
+}
