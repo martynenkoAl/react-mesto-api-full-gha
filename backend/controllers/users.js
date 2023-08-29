@@ -5,13 +5,13 @@ const User = require('../models/user');
 const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
 const ConflictError = require('../errors/ConflictError');
-const { STATUS_OK, STATUS_CREATED } = require('../utils/constants');
+const { STATUS_CREATED } = require('../utils/constants');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports.getUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.status(STATUS_OK).send(users))
+    .then((users) => res.send(users))
     .catch(next);
 };
 

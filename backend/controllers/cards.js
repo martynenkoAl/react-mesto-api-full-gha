@@ -4,11 +4,11 @@ const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
 const ForbiddenError = require('../errors/ForbiddenError');
 
-const { STATUS_OK, STATUS_CREATED } = require('../utils/constants');
+const { STATUS_CREATED } = require('../utils/constants');
 
 module.exports.getCards = (req, res, next) => {
   Card.find({})
-    .then((cards) => res.status(STATUS_OK).send(cards))
+    .then((cards) => res.send(cards))
     .catch(next);
 };
 
