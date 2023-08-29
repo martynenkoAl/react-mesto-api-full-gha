@@ -1,8 +1,6 @@
 class Api {
   constructor(options) {
     this._url = options.baseUrl;
-    this._headers = options.headers;
-    this._authorization = options.headers.authorization;
   }
 
   _getResponseData(res) {
@@ -19,7 +17,8 @@ class Api {
   getInfo() {
     return this._request(`/users/me`, {
       headers: {
-        authorization: this._authorization,
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + localStorage.getItem('jwt'),
       },
     });
   }
@@ -27,60 +26,68 @@ class Api {
   getInitialCards() {
     return this._request(`/cards`, {
       headers: {
-        authorization: this._authorization,
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + localStorage.getItem('jwt'),
       },
     });
   }
 
   setUserInfo(data) {
     return this._request(`/users/me`, {
-      method: "PATCH",
-      headers: this._headers,
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + localStorage.getItem('jwt'),
+      },
       body: JSON.stringify(data),
     });
   }
 
   setAvatar(data) {
     return this._request(`/users/me/avatar`, {
-      method: "PATCH",
-      headers: this._headers,
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + localStorage.getItem('jwt'),
+      },
       body: JSON.stringify(data),
     });
   }
 
   addNewCard(data) {
     return this._request(`/cards`, {
-      method: "POST",
-      headers: this._headers,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + localStorage.getItem('jwt'),
+      },
       body: JSON.stringify(data),
     });
   }
 
   deleteCard(cardId) {
     return this._request(`/cards/${cardId}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
-        authorization: this._authorization,
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + localStorage.getItem('jwt'),
       },
     });
   }
 
   toggleLike(cardId, isLiked) {
     return this._request(`/cards/${cardId}/likes `, {
-      method: `${isLiked ? "PUT" : "DELETE"}`,
+      method: `${isLiked ? 'PUT' : 'DELETE'}`,
       headers: {
-        authorization: this._authorization,
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + localStorage.getItem('jwt'),
       },
     });
   }
 }
 
 const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-66",
-  headers: {
-    authorization: "16c59b9f-2624-4711-ab65-5d2bf980f5da",
-    "Content-Type": "application/json",
-  },
+  baseUrl: 'http://localhost:3000',
 });
 
 export default api;

@@ -1,20 +1,20 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import api from "../utils/api";
-import * as auth from "../utils/auth.js";
-import Header from "./Header.js";
-import Main from "./Main.js";
-import Footer from "./Footer.js";
-import ImagePopup from "./ImagePopup.js";
-import CurrentUserContext from "../contexts/CurrentUserContext";
-import EditProfilePopup from "./EditProfilePopup.js";
-import EditAvatarPopup from "./EditAvatarPopup.js";
-import AddPlacePopup from "./AddPlacePopup.js";
-import Login from "./Login.js";
-import Register from "./Register.js";
-import ProtectedRoute from "./ProtectedRoute.js";
-import InfoTooltip from "./InfoTooltip.js";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import api from '../utils/api';
+import * as auth from '../utils/auth.js';
+import Header from './Header.js';
+import Main from './Main.js';
+import Footer from './Footer.js';
+import ImagePopup from './ImagePopup.js';
+import CurrentUserContext from '../contexts/CurrentUserContext';
+import EditProfilePopup from './EditProfilePopup.js';
+import EditAvatarPopup from './EditAvatarPopup.js';
+import AddPlacePopup from './AddPlacePopup.js';
+import Login from './Login.js';
+import Register from './Register.js';
+import ProtectedRoute from './ProtectedRoute.js';
+import InfoTooltip from './InfoTooltip.js';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -27,8 +27,9 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isInfoTooltipSuccess, setIsInfoTooltipSuccess] = useState(false);
   const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false);
-  const [headerEmail, setHeaderEmail] = useState("");
+  const [headerEmail, setHeaderEmail] = useState('');
   const navigate = useNavigate();
+  const jwt = localStorage.getItem('jwt');
 
   function handleCardClick(card) {
     setSelectedCard(card);
@@ -43,7 +44,7 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((id) => id === currentUser._id);
     api
       .toggleLike(card._id, !isLiked)
       .then((newCard) => {
@@ -58,7 +59,7 @@ function App() {
     api
       .deleteCard(card._id)
       .then(() => {
-        setCards((state) => state.filter((c) => c._id !== card._id));
+        setCards((state) => state.filter((c) => c !== card));
       })
       .catch(console.error);
   }
@@ -101,36 +102,35 @@ function App() {
 
   useEffect(() => {
     if (loggedIn) {
-      Promise.all([api.getInfo(), api.getInitialCards()])
+      Promise.all([api.getInfo(jwt), api.getInitialCards(jwt)])
         .then(([user, card]) => {
           setCurrentUser(user);
           setCards(card);
         })
         .catch(console.error);
     }
-  }, [loggedIn]);
+  }, [loggedIn, jwt]);
 
   useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
     if (jwt) {
       auth
         .getContent(jwt)
         .then((data) => {
           setLoggedIn(true);
-          setHeaderEmail(data.data.email);
-          navigate("/", { replace: true });
+          setHeaderEmail(data.email);
+          navigate('/', { replace: true });
         })
         .catch((err) => console.log(err));
     } else {
       setLoggedIn(false);
     }
-  }, [navigate]);
+  }, [navigate, jwt]);
 
   function handleSignOut() {
-    localStorage.removeItem("jwt");
-    setHeaderEmail("");
+    localStorage.removeItem('jwt');
+    setHeaderEmail('');
     setLoggedIn(false);
-    navigate("/signin", { replace: true });
+    navigate('/signin', { replace: true });
   }
 
   function handleSignUp(email, password) {
@@ -138,7 +138,7 @@ function App() {
       .register(email, password)
       .then((data) => {
         setIsInfoTooltipSuccess(true);
-        navigate("/signin", { replace: true });
+        navigate('/signin', { replace: true });
       })
       .catch((error) => {
         setIsInfoTooltipSuccess(false);
@@ -153,9 +153,9 @@ function App() {
     auth
       .login(email, password)
       .then((data) => {
-        localStorage.setItem("jwt", data.token);
+        localStorage.setItem('jwt', data.token);
         setLoggedIn(true);
-        navigate("/", { replace: true });
+        navigate('/', { replace: true });
       })
       .catch((error) => {
         setIsInfoTooltipSuccess(false);
@@ -166,12 +166,12 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="App">
-        <div className="page__container">
+      <div className='App'>
+        <div className='page__container'>
           <Header userEmail={headerEmail} onSignOut={handleSignOut} />
           <Routes>
             <Route
-              path="/"
+              path='/'
               element={
                 <ProtectedRoute
                   element={Main}
@@ -187,17 +187,17 @@ function App() {
               }
             />
             <Route
-              path="/signup"
+              path='/signup'
               element={<Register onSignUp={handleSignUp} />}
             />
-            <Route path="/signin" element={<Login onSignIn={handleSignIn} />} />
+            <Route path='/signin' element={<Login onSignIn={handleSignIn} />} />
             <Route
-              path="/"
+              path='/'
               element={
                 loggedIn ? (
-                  <Navigate to="/" replace />
+                  <Navigate to='/' replace />
                 ) : (
-                  <Navigate to="/signin" replace />
+                  <Navigate to='/signin' replace />
                 )
               }
             />

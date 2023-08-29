@@ -8,16 +8,6 @@ const STATUS_INTERNAL_SERVER_ERROR = 500;
 const UrlRegex =
   /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
 
-const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
-const allowedCors = [
-  'https://mesto.react.nomoreparties.co',
-  'https://api.mesto.react.nomoreparties.co',
-  'http://mesto.react.nomoreparties.co',
-  'https://api.mesto.react.nomoreparties.co',
-  'localhost:3000',
-  'localhost:3000',
-];
-
 module.exports = {
   STATUS_OK,
   STATUS_CREATED,
@@ -26,6 +16,4 @@ module.exports = {
   STATUS_NOT_FOUND,
   STATUS_INTERNAL_SERVER_ERROR,
   UrlRegex,
-  DEFAULT_ALLOWED_METHODS,
-  allowedCors,
 };

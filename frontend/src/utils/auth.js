@@ -1,4 +1,4 @@
-export const BASE_URL = "https://auth.nomoreparties.co";
+export const BASE_URL = 'http://localhost:3000';
 
 const getResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
@@ -10,9 +10,9 @@ function request(url, options) {
 
 export const register = (email, password) => {
   return request(`/signup`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       email: email,
@@ -23,9 +23,9 @@ export const register = (email, password) => {
 
 export const login = (email, password) => {
   return request(`/signin`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       email: email,
@@ -34,12 +34,13 @@ export const login = (email, password) => {
   });
 };
 
-export const getContent = (token) => {
+export const getContent = () => {
   return request(`/users/me`, {
-    method: "GET",
+    method: 'GET',
     headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      authorization: 'Bearer ' + localStorage.getItem('jwt'),
     },
   });
 };

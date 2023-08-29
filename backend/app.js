@@ -9,11 +9,11 @@ const { router } = require('./routes/index');
 const NotFoundError = require('./errors/NotFoundError');
 const errorHandler = require('./middlewares/error-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { corsOptionsDelegate } = require('./middlewares/cors');
 
 const { PORT = 3000 } = process.env;
 
 const app = express();
+app.use(cors());
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
@@ -28,8 +28,6 @@ app.use(helmet());
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
 app.use(requestLogger);
-
-app.use(cors(corsOptionsDelegate));
 
 app.get('/crash-test', () => {
   setTimeout(() => {
