@@ -9,7 +9,7 @@
 ## Ссылки на проект
 IP 158.160.41.51
 
-Frontend https://mesto.react.nomoreparties.co
+Frontend https://mesto.react.nomoreparties.co   
 Backend https://api.mesto.react.nomoreparties.co 
 
 ### Установка и запуск проекта  
