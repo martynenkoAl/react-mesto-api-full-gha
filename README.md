@@ -1,5 +1,5 @@
 # Проект: Место React (frontend + backend)
-<img src="https://github.com/martynenkoAl/react-mesto-api-full-gha/assets/121212086/87f5b1df-ddd7-492c-9bb9-a1a6a8234e80" width="600" />
+<img src="https://github.com/martynenkoAl/react-mesto-api-full-gha/assets/121212086/dc84c10d-c80c-409e-a4a8-4f79b9e4244f" width="600" />
 
 ## Описание
 Репозиторий для приложения проекта `Mesto`, включающий фронтенд и бэкенд части приложения со следующими возможностями: авторизации и регистрации пользователей, возможность добавить фильмы в сохраненные, фильтровать по длительности.
