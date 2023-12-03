@@ -6,11 +6,8 @@
 
 Адрес репозитория: https://github.com/martynenkoAl/react-mesto-api-full-gha
 
-## Ссылки на проект
-IP 158.160.41.51
-
-Frontend https://mesto.react.nomoreparties.co   
-Backend https://api.mesto.react.nomoreparties.co 
+### Ссылки на проект
+Frontend https://mesto.react.nomoreparties.co 
 
 ### Установка и запуск проекта  
 1. git clone https://github.com/martynenkoAl/react-mesto-api-full-gha.git
